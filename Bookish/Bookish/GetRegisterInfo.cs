@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using System;
+using DataAccessNew;
 
 namespace Bookish
 {
@@ -9,7 +10,12 @@ namespace Bookish
             while (true) {
                 GetUserNameAndPassword(out string userName, out string password);
                 Register register = new Register(userName,password);
-                if (!register.CheckUserNameIsFree()) continue;
+                if (!register.CheckUserNameIsFree())
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" Username is already taken.");
+                    continue;
+                }
                 register.InsertNewUser();
                 break;
             }

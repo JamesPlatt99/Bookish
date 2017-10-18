@@ -1,13 +1,25 @@
-﻿namespace Bookish
+﻿using System;
+using DataAccessNew;
+
+namespace Bookish
 {
     public class GetLoginInfo
     {
         public GetLoginInfo()
         {
-            string userName = UserInput.GetInput("Username");
-            string password = UserInput.GetInput("Password");
-            //string salt =
-            //string passwordHash =
-        }
+            while (true)
+            {
+                string userName = UserInput.GetInput("Username");
+                string password = UserInput.GetInput("Password");
+                LogIn login = new LogIn(userName);
+                if (login.validatePassword(password))
+                {
+                    break;
+                }
+                Console.WriteLine();
+                Console.WriteLine(" Invalid password.");
+                Console.WriteLine();
+            }
+    }
     }
 }

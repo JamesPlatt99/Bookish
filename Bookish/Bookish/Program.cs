@@ -6,10 +6,11 @@ namespace Bookish
     {
         private static void Main(string[] args)
         {
-            while (true)
+            int choice = 0;
+            while (choice != 3)
             {
                 DisplayMenu();
-                int.TryParse(Console.ReadLine(), out int choice);
+                int.TryParse(Console.ReadLine(), out choice);
                 GetChoice(choice);
             }
         }
