@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Bookish.Web.Models.LoginRegisterData
+@{
     ViewBag.Title = "Home Page";
 }
 <link rel="stylesheet" href="Style/style.css">
@@ -6,39 +7,60 @@
     <h1>Ay up lads, check out me new library!</h1>
 </div>
 
+<div style="color: crimson; font-size: 16px;">
+    @if (@Model != null)
+    {
+        @Model.Error
+    }
+</div>
+
 <center>
 <table width ="80%">
     <tr>
         <td>
-                <div>
-                    <h2>Login</h2><br />
-                    <form action="" method="post">
-                        <label>Username: </label><br/>
-                        <input type="text" name="userName"/>
-                        <br/><br />
-                        <label>Password: </label><br/>
-                        <input type="password" name="password"/>
-                        <br/><br />
-                        <input type="submit"/>
-                    </form>
-                </div>
+            <div>
+                <h2>Login</h2><br />
+                @using (Html.BeginForm("Home", "Home", FormMethod.Post))
+                {
+                    <label>Username: </label>
+                    <br/>
+                    <input type="text" name="UserName"/>
+                    <br/>
+                    <br/>
+                    <label>Password: </label>
+                    <br/>
+                    <input type="password" name="Password"/>
+                    <input type="hidden" name="NewUser" value="false"/>
+                    <br/>
+                    <br/>
+                    <input type="submit"/>
+                }
+            </div>
         </td>
         <td>
-                <div>
-                    <h2>Register</h2><br />
-                    <form action="" method="post">
-                        <label>Username </label><br />
-                        <input type="text" name="userName" />
-                        <br /><br />
-                        <label>Password </label><br />
-                        <input type="password" name="password" />
-                        <br /><br />
-                        <label>Confirm Password </label><br />
-                        <input type="password" name="password" />
-                        <br /><br />
-                        <input type="submit" />
-                    </form>
-                </div>
+             <div>
+             <h2>Register</h2><br />
+                 @using (Html.BeginForm("Home", "Home", FormMethod.Post))
+                 {
+                     <label>Username </label>
+                     <br/>
+                     <input type="text" name="UserName"/>
+                     <br/>
+                     <br/>
+                     <label>Password </label>
+                     <br/>
+                     <input type="password" name="Password"/>
+                     <br/>
+                     <br/>
+                     <label>Confirm Password </label>
+                     <br/>
+                     <input type="password" name="ConfirmPassword"/>
+                     <input type="hidden" name="NewUser" value="true"/>
+                     <br/>
+                     <br/>
+                     <input type="submit"/>
+                 }
+             </div>
         </td>
     </tr>
 </table>

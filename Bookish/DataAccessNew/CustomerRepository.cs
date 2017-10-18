@@ -11,7 +11,7 @@ namespace DataAccessNew
 {
     public class CustomerRepository
     {
-        private readonly IDbConnection _db = new SqlConnection(ConfigurationManager.ConnectionStrings["MySQLServer"].ConnectionString);
+        private readonly IDbConnection _db = new SqlConnection("Server = localhost; Database=Booksih;Trusted_Connection=True;");
 
 
         public List<Users> GetUsers(int amount, string sort)
