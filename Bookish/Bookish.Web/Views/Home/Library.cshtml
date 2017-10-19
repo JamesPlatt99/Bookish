@@ -35,8 +35,8 @@
         }
     <h2>Books</h2>
 
-        <table cellpadding="15">
-            <tr>
+        <table cellpadding="5">
+            <tr style="background-color: #a9a9a9">
                 <td>
                     <b>
                         <a href="Library?SortBy=title">Title</a>
@@ -67,16 +67,21 @@
                         <a href="Library?SortBy=availableCopies">Available copies</a>
                     </b>
                 </td>
-                <td>
-                    <b>
-                        Cover Image
-                    </b>
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             @{
+                int i = 0;
                 foreach (BookTypes book in books)
                 {
-                    <tr>
+                    string style = "background-color: #e2e2e2;";
+                    i++;
+                    if (i % 2 == 0)
+                    {
+                        style = "background-color: #d6d6d6;";
+                    }
+                    <tr style="@style">
                         <td>
                             @book.title
                         </td>
