@@ -145,6 +145,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\InsertBook.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Rentals.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,6 +154,7 @@
     <Compile Include="Models\LoginRegister.cs" />
     <Compile Include="Models\LoginRegisterData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BookData.cs" />
     <Compile Include="ViewModels\BookRental.cs" />
     <Compile Include="ViewModels\LibraryParameters.cs" />
     <Compile Include="ViewModels\UserData.cs" />

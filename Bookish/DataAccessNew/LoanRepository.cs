@@ -29,9 +29,9 @@ namespace DataAccessNew
             return loan;
         }
 
-        public List<Loans> GetLoans(int userId)
+        public List<Loans> GetActiveLoans(int userId)
         {
-            string sqlString = $"SELECT * FROM Loans WHERE User_Id = {userId};";
+            string sqlString = $"SELECT * FROM Loans WHERE User_Id = {userId} AND returned = 'false';";
             List<Loans> loans = (List<Loans>)_db.Query<Loans>(sqlString);
             loans = GetBooks(loans);
             loans = GetUsers(loans);
@@ -48,9 +48,9 @@ namespace DataAccessNew
             return loans;
         }
 
-        public void DeleteLoan(Loans loan)
+        public void ReturnBook(Loans loan)
         {
-            _db.Query($"DELETE FROM Loans Where id = {loan.id}");
+            _db.Query($"UPDATE Loans Set returned = 'true' Where id = {loan.id}");
             _db.Query($"UPDATE Book SET available = 'true' Where id = {loan.Book.id}");
         }
 

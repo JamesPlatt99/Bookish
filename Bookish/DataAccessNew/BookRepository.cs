@@ -47,5 +47,10 @@ namespace DataAccessNew
             string sqlString = $"UPDATE Book SET available = '{available}' Where id = '{id}';";
             Book book = Db.Query<Book>(sqlString).SingleOrDefault();
         }
+
+        public void InsertBook(Book book)
+        {
+            Db.Execute($"INSERT Book(BookTypes_Id,available) VALUES ({book.BookTypes_id},'true')");
+        }
     }
 }

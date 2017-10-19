@@ -43,7 +43,7 @@ namespace Bookish.Web.Controllers
         {
             LoanRepository loanRepository = new LoanRepository();
             Loans loan = loanRepository.GetLoan(rentalId);
-            loanRepository.DeleteLoan(loan);
+            loanRepository.ReturnBook(loan);
             return View("Home");
         }
 
@@ -83,6 +83,23 @@ namespace Bookish.Web.Controllers
             ViewBag.Message = "Your application description page.";
 
             return View();
+        }
+
+        public ActionResult AddBookResult(BookData book)
+        {
+            if (!InsertBook.CheckNewBookTitle(book.title))
+            {
+                book = new BookData()
+                {
+                    Error = "Title already exists in library."
+                };
+                return View("AddBook", book);
+            }
+            BookRepository bookRepository = new BookRepository();
+            BookTypes bookType = InsertBook.CreateBookType(book);
+            InsertBook.CreateBooks(bookType,book.quantity);
+            
+            return View("Library", new LibraryParameters());
         }
 
         public ActionResult AddBook()

@@ -63,7 +63,7 @@ namespace DataAccessNew
 
         public void InsertBookType(BookTypes bookType)
         {
-            _db.Execute($"INSERT BookTypes(title, author_Id,genre,releaseDate,ISBN,coverImageURL) VALUES ('{bookType.title}','{bookType.author_id}','{bookType.genre}','{bookType.releaseDate:yyyy MM dd}','{bookType.ISBN}','{bookType.coverImageURL}')");
+            _db.Execute($"INSERT BookTypes(title, author_Id,genre,releaseDate,ISBN,coverImageURL) VALUES ('{bookType.title}','{bookType.author_id}','{bookType.genre}','{bookType.releaseDate:yyyy-MM-dd}','{bookType.ISBN}','{bookType.coverImageURL}')");
         }
 
         public bool DeleteBookType(int bookId)

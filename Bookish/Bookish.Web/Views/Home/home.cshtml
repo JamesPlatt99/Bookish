@@ -39,7 +39,7 @@
         UserRepository userRepository = new UserRepository();
         int userId = userRepository.GetSingleUser(Session["userName"].ToString()).id;
         LoanRepository loanRepository = new LoanRepository();
-        List<Loans> rentals = loanRepository.GetLoans(userId);
+        List<Loans> rentals = loanRepository.GetActiveLoans(userId);
     }
     <div style="overflow: hidden;">
         <h2>Current rentals</h2>
