@@ -5,21 +5,22 @@ namespace DataAccessNew
 {
     public class LogIn
     {
-        private readonly CustomerRepository _customerRepository = new CustomerRepository();
+        private readonly UserRepository _userRepository = new UserRepository();
         private readonly Users _user;
+
         public LogIn(string userName)
         {
             _user = GetUserData(userName);
         }
 
-        public bool validatePassword(string password)
+        public bool ValidatePassword(string password)
         {
-            return BCryptHelper.CheckPassword(password, _user.passwordHash);
+            return _user != null && BCryptHelper.CheckPassword(password, _user.passwordHash);
         }
 
         private Users GetUserData(string userName)
         {
-            return _customerRepository.GetSingleUser(userName);
+            return _userRepository.GetSingleUser(userName);
         }
     }
 }

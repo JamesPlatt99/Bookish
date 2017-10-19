@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add book</title>
+</head>
+<body>
+    <div>
+        <br /><br />
+        <h2>Add Book:</h2>
+        <br />
+        @using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
+        {
+        <label>Title</label><br />
+        <input type="text" name="title" /><br /><br />
+        <label>Author</label><br />
+        <input type="text" name="author" /><br /><br />
+        <label>Genre</label><br />
+        <input type="text" name="genre" /><br /><br />
+        <label>Release date</label><br />
+        <input type="text" name="releaseDate" /><br /><br />
+        <label>ISBN</label><br />
+        <input type="text" name="ISBN" /><br /><br />
+        <label>Cover Image Url</label><br />
+        <input type="text" name="coverImageURL" /><br /><br />
+        <input type="submit" />
+        }
+    </div>
+</body>
+</html>

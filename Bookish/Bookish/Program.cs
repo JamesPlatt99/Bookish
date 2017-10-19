@@ -2,10 +2,11 @@
 
 namespace Bookish
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
+            EnterBooksFromFile.EnterFiles();
             int choice = 0;
             while (choice != 3)
             {

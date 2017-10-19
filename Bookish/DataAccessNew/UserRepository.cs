@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Dapper;
+using DataAccessNew.Tables;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using DataAccessNew.Tables;
 
 namespace DataAccessNew
 {
-    public class CustomerRepository
+    public class UserRepository
     {
         private readonly IDbConnection _db = new SqlConnection("Server = localhost; Database=Booksih;Trusted_Connection=True;");
-
 
         public List<Users> GetUsers(int amount, string sort)
         {
@@ -20,6 +18,7 @@ namespace DataAccessNew
             List<Users> users = (List<Users>)_db.Query<Users>(sqlString);
             return users;
         }
+
         public List<Users> GetUsers()
         {
             string sqlString = "SELECT * FROM Users;";
@@ -29,7 +28,9 @@ namespace DataAccessNew
 
         public Users GetSingleUser(int userId)
         {
-            throw new NotImplementedException();
+            string sqlString = $"SELECT * FROM Users Where id = '{userId}';";
+            Users user = _db.Query<Users>(sqlString).SingleOrDefault();
+            return user;
         }
 
         public Users GetSingleUser(string userName)

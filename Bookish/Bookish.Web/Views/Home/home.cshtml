@@ -1,16 +1,108 @@
-﻿@using DataAccessNew
+﻿@using Bookish.Web.Controllers
+@using DataAccessNew
 @using Bookish.Web.Models
 @using Bookish.Web.ViewModels
+@using DataAccessNew.Tables
 @model Bookish.Web.ViewModels.UserData
+@{
+    HomeController homeController = new HomeController();
+    if (Session["userName"] == null && Session["password"] == null)
+    {
+        if (homeController.ValidateUser(@Model))
+        {
+            Session["userName"] = @Model.User.userName;
+            Session["password"] = @Model.User.passwordHash;
+        }
+    }
+}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Home</title>
-    </head>
+<head>
+    <title>Home</title>
+</head>
 
-    <body>
-        <div>
-              Welcome @Model.User.userName
-        </div>
-    </body>
+<body>
+    <div>
+        <br />
+        <h3>
+            Welcome @Session["UserName"]
+        </h3>
+    </div>
+    <div style="float: left; width: 400px;">
+        <h2>Menu</h2>
+        <br />
+        <a href="Library">View library</a>
+        <br /><br />
+        <a href="AddBook">Add book.</a>
+    </div>
+    @{
+        UserRepository userRepository = new UserRepository();
+        int userId = userRepository.GetSingleUser(Session["userName"].ToString()).id;
+        LoanRepository loanRepository = new LoanRepository();
+        List<Loans> rentals = loanRepository.GetLoans(userId);
+    }
+    <div style="overflow: hidden;">
+        <h2>Current rentals</h2>
+        <table cellpadding="10">
+            <tr>
+                <td>
+                    <b>
+                        Cover Image:
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        Book title:
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        Taken out:
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        Due back:
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        Return:
+                    </b>
+                </td>
+            </tr>
+            @{
+                foreach (Loans rental in rentals)
+                {
+                    string style = "background-color: #00ff00;";
+                    if (DateTime.Compare(rental.dateTakenOut.AddDays(rental.duration), DateTime.Now.Date) < 0)
+                    {
+                        style = "background-color: #ff0000;";
+                    }
+                    if (DateTime.Compare(rental.dateTakenOut.AddDays(rental.duration), DateTime.Now.Date) == 0)
+                    {
+                        style = "background-color: #ffff00;";
+                    }
+                    <tr style="@style">
+                        <td>
+                            <img src="@rental.Book.BookType.coverImageURL" height="100px" />
+                        </td>
+                        <td>
+                            @rental.Book.BookType.title
+                        </td>
+                        <td>
+                            @string.Format($"{rental.dateTakenOut:d}")
+                        </td>
+                        <td>
+                            @string.Format($"{rental.dateTakenOut.AddDays(rental.duration):d}")
+                        </td>
+                        <td>
+                            <a href="ReturnBook?rentalId=@rental.id">Mark as returned</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</body>
 </html>

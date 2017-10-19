@@ -1,12 +1,19 @@
-﻿@model Bookish.Web.Models.LoginRegisterData
+﻿@using System.Web.UI.WebControls
+@using DataAccessNew
+@using DataAccessNew.Tables
+@model Bookish.Web.Models.LoginRegisterData
 @{
     ViewBag.Title = "Home Page";
+    Layout = null;
+    Session.Clear();
 }
-<link rel="stylesheet" href="Style/style.css">
+<link rel="stylesheet" href="~/Content/style.css">
 <div id="header">
     <h1>Ay up lads, check out me new library!</h1>
 </div>
-
+<marquee scrollamount="300">
+    <img src="http://www.carechartsuk.co.uk/wp-content/uploads/2014/10/book-reviews-web.png" height="150" />
+</marquee>
 <div style="color: crimson; font-size: 16px;">
     @if (@Model != null)
     {
@@ -14,55 +21,57 @@
     }
 </div>
 
-<center>
-<table width ="80%">
-    <tr>
-        <td>
-            <div>
-                <h2>Login</h2><br />
-                @using (Html.BeginForm("Home", "Home", FormMethod.Post))
-                {
-                    <label>Username: </label>
-                    <br/>
-                    <input type="text" name="UserName"/>
-                    <br/>
-                    <br/>
-                    <label>Password: </label>
-                    <br/>
-                    <input type="password" name="Password"/>
-                    <input type="hidden" name="NewUser" value="false"/>
-                    <br/>
-                    <br/>
-                    <input type="submit"/>
-                }
-            </div>
-        </td>
-        <td>
-             <div>
-             <h2>Register</h2><br />
-                 @using (Html.BeginForm("Home", "Home", FormMethod.Post))
-                 {
-                     <label>Username </label>
-                     <br/>
-                     <input type="text" name="UserName"/>
-                     <br/>
-                     <br/>
-                     <label>Password </label>
-                     <br/>
-                     <input type="password" name="Password"/>
-                     <br/>
-                     <br/>
-                     <label>Confirm Password </label>
-                     <br/>
-                     <input type="password" name="ConfirmPassword"/>
-                     <input type="hidden" name="NewUser" value="true"/>
-                     <br/>
-                     <br/>
-                     <input type="submit"/>
-                 }
-             </div>
-        </td>
-    </tr>
-</table>
-</center>
-
+<marquee scrollamount="50">
+    <table width="80%">
+        <tr>
+            <td>
+                <div>
+                    <h2>Login</h2><br />
+                    @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
+                    {
+                        <label>Username: </label>
+                        <br />
+                        <input type="text" name="UserName" />
+                        <br />
+                        <br />
+                        <label>Password: </label>
+                        <br />
+                        <input type="password" name="Password" />
+                        <input type="hidden" name="NewUser" value="false" />
+                        <br />
+                        <br />
+                        <input type="submit" />
+                    }
+                </div>
+            </td>
+            <td>
+                <div>
+                    @{
+                        List<BookTypes> books = new List<BookTypes>();
+                    }
+                    <h2>Register</h2><br />
+                    @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
+                    {
+                        <label>Username </label>
+                        <br />
+                        <input type="text" name="UserName" />
+                        <br />
+                        <br />
+                        <label>Password </label>
+                        <br />
+                        <input type="password" name="Password" />
+                        <br />
+                        <br />
+                        <label>Confirm Password </label>
+                        <br />
+                        <input type="password" name="ConfirmPassword" />
+                        <input type="hidden" name="NewUser" value="true" />
+                        <br />
+                        <br />
+                        <input type="submit" />
+                    }
+                </div>
+            </td>
+        </tr>
+    </table>
+</marquee>

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using Dapper;
-using DataAccessNew.Tables;
+﻿using DataAccessNew.Tables;
 using DevOne.Security.Cryptography.BCrypt;
+using System;
+using System.Collections.Generic;
 
 namespace DataAccessNew
 {
@@ -13,13 +9,12 @@ namespace DataAccessNew
     {
         private readonly string _userName;
         private readonly string _passwordHash;
-        private readonly CustomerRepository _customerRepository = new CustomerRepository();
+        private readonly UserRepository _userRepository = new UserRepository();
 
         public Register(string userName, string password)
         {
-
             string salt = BCryptHelper.GenerateSalt();
-            _passwordHash =  BCryptHelper.HashPassword(password, salt);
+            _passwordHash = BCryptHelper.HashPassword(password, salt);
             _userName = userName;
         }
 
@@ -30,12 +25,12 @@ namespace DataAccessNew
                 userName = _userName,
                 passwordHash = _passwordHash
             };
-            _customerRepository.InsertUser(newUser);
+            _userRepository.InsertUser(newUser);
         }
 
         public Boolean CheckUserNameIsFree()
         {
-            List<Users> users = _customerRepository.GetUsers();
+            List<Users> users = _userRepository.GetUsers();
             foreach (Users user in users)
             {
                 if (user.userName == _userName)

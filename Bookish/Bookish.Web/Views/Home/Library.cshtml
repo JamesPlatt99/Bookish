@@ -1,0 +1,113 @@
+﻿@using Bookish.Web.Controllers
+@using DataAccessNew
+@using Bookish.Web.Models
+@using Bookish.Web.ViewModels
+@using DataAccessNew.Tables
+@model Bookish.Web.ViewModels.LibraryParameters
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <div>
+        <br />
+        <h3>
+            @{
+                if (Session["Username"] != null)
+                {
+                    <p>
+                        Welcome @Session["Username"].ToString()
+                    </p>
+                }
+            }
+        </h3>
+    </div>
+    @{
+        BookTypeRepository bookTypeRepository = new BookTypeRepository();
+        List<BookTypes> books = bookTypeRepository.GetBookTypes();
+        if (Model.sortby != null)
+        {
+            books = BookTypes.SortBooks(Model.sortby,books);
+        }
+        }
+    <h2>Books</h2>
+
+        <table cellpadding="15">
+            <tr>
+                <td>
+                    <b>
+                        <a href="Library?SortBy=title">Title</a>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        <a href="Library?SortBy=author">Author</a>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        <a href="Library?SortBy=releaseDate">Release Date</a>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        <a href="Library?SortBy=genre">Genre</a>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        <a href="Library?SortBy=ISBN">ISBN</a>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        <a href="Library?SortBy=availableCopies">Available copies</a>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        Cover Image
+                    </b>
+                </td>
+            </tr>
+            @{
+                foreach (BookTypes book in books)
+                {
+                    <tr>
+                        <td>
+                            @book.title
+                        </td>
+                        <td>
+                            @book.author.name
+                        </td>
+                        <td>
+                            @($"{book.releaseDate:d}")
+                        </td>
+                        <td>
+                            @book.genre
+                        </td>
+                        <td>
+                            @book.ISBN
+                        </td>
+                        <td>
+                            @book.availableCopies
+                        </td>
+                        <td>
+                            <img src="@book.coverImageURL" height="100px" />
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("TakeOutBook", "Home", FormMethod.Post))
+                            {
+                                <input type ="hidden" name="id" value="@book.id" />
+                                <input type="submit" value="Take out" />
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+</body>
+</html>

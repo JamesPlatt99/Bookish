@@ -1,5 +1,5 @@
-﻿using System;
-using DataAccessNew;
+﻿using DataAccessNew;
+using System;
 
 namespace Bookish
 {
@@ -12,14 +12,14 @@ namespace Bookish
                 string userName = UserInput.GetInput("Username");
                 string password = UserInput.GetInput("Password");
                 LogIn login = new LogIn(userName);
-                if (login.validatePassword(password))
+                if (login.ValidatePassword(password))
                 {
                     break;
                 }
                 Console.WriteLine();
-                Console.WriteLine(" Invalid password.");
+                Console.WriteLine(" Invalid passwordHash.");
                 Console.WriteLine();
             }
-    }
+        }
     }
 }

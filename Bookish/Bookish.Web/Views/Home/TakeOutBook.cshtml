@@ -1,0 +1,30 @@
+﻿@model Bookish.Web.ViewModels.BookRental
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Take out book</title>
+</head>
+    <body>
+        <div>
+            <h2>Book rental form</h2>
+            @using (Html.BeginForm("ConfirmRental", "Home", FormMethod.Post))
+            {
+                <p>
+                    <br />
+                    Book title: @Model.BookType.title <br /><br />
+                    Rental length:
+                    <input type="hidden" name="typeId" value="@Model.BookType.id" />
+                    <select name="duration">
+                        <option value="1">1 day</option>
+                        <option value="3">3 days</option>
+                        <option value="7">1 week</option>
+                        <option value="14">2 weeks</option>
+                    </select>
+                    <br /><br />
+                    <input type="submit" value="confirm" />
+                </p>
+            }
+        </div>
+    </body>
+</html>

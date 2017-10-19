@@ -1,7 +1,19 @@
-﻿.html {
+﻿html {
     font-family: "Comic Sans MS";
+    color: #ff00ff;
 }
-.header {
+body {
+    background-color: #00ff00;
+    background-image: url("https://i.pinimg.com/originals/46/e4/99/46e4992a0c0ce62dc038f96fe9ce67a9.gif");
+}
+#header {
+    background-image: url("https://i.pinimg.com/originals/c4/f6/1f/c4f61f49abd2d4fe24e6fc12acf15463.gif");
     background-color: #5555ff;
     color: #f3f3f3;
+    padding: 15px;
+}
+table {
+    background-color: #ff00ff;
+    background-image: url("https://i.pinimg.com/originals/e0/5b/f4/e05bf4cdfb7d51ecb01ff00843458049.gif");
+    color: #00ff00;
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using DataAccessNew;
+﻿using DataAccessNew;
+using System;
 
 namespace Bookish
 {
@@ -7,9 +7,10 @@ namespace Bookish
     {
         public GetRegisterInfo()
         {
-            while (true) {
+            while (true)
+            {
                 GetUserNameAndPassword(out string userName, out string password);
-                Register register = new Register(userName,password);
+                Register register = new Register(userName, password);
                 if (!register.CheckUserNameIsFree())
                 {
                     Console.WriteLine();

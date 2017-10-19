@@ -4,7 +4,7 @@ namespace Bookish.Web.Models
 {
     public class LoginRegister
     {
-        public bool validate(LoginRegisterData data)
+        public bool Validate(LoginRegisterData data)
         {
             return data.NewUser ? Register(data) : LogIn(data);
         }
@@ -20,7 +20,7 @@ namespace Bookish.Web.Models
         private bool LogIn(LoginRegisterData data)
         {
             LogIn login = new LogIn(data.UserName);
-            return login.validatePassword(data.Password);
+            return login.ValidatePassword(data.Password);
         }
     }
 }
