@@ -57,6 +57,13 @@ namespace Bookish.Web.Controllers
             return View(libraryParameters);
         }
 
+        public ActionResult ViewStatus(int id)
+        {
+            BookTypeRepository bookTypeRepository = new BookTypeRepository();
+            BookTypes bookTypes = bookTypeRepository.GetSingleBookType(id);
+            return View(bookTypes);
+        }
+
         public ActionResult TakeOutBook(int id)
         {
             UserRepository userRepository = new UserRepository();

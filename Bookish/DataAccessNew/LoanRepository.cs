@@ -29,6 +29,19 @@ namespace DataAccessNew
             return loan;
         }
 
+        public Loans GetLoanFromBookId(int bookId)
+        {
+            BookRepository bookRepository = new BookRepository();
+            BookTypeRepository bookTypeRepository = new BookTypeRepository();
+            UserRepository userRepository = new UserRepository();
+            string sqlString = $"SELECT * FROM Loans Where book_id = '{bookId}' AND returned = 'false';";
+            Loans loan = _db.Query<Loans>(sqlString).SingleOrDefault();
+            loan.Book = bookRepository.GetBookOfId(loan.book_id);
+            loan.Book.BookType = bookTypeRepository.GetSingleBookType(loan.Book.BookTypes_id);
+            loan.user = userRepository.GetSingleUser(loan.user_id);
+            return loan;
+        }
+
         public List<Loans> GetActiveLoans(int userId)
         {
             string sqlString = $"SELECT * FROM Loans WHERE User_Id = {userId} AND returned = 'false';";

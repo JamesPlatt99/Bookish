@@ -1,0 +1,88 @@
+﻿@using DataAccessNew
+@using DataAccessNew.Tables
+@model DataAccessNew.Tables.BookTypes
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>View Status</title>
+</head>
+    <body>
+        <div>
+            <br />
+            <h2>
+                Book status - @Model.title
+            </h2>
+            <table cellpadding="15">
+                <tr>
+                    <td>
+                        <b>Book id</b>
+                    </td>
+                    <td>
+                        <b>Availability</b>
+                    </td>
+                    <td>
+                        <b>Current possessor</b>
+                    </td>
+                    <td>
+                        <b>Taken out</b>
+                    </td>
+                    <td>
+                        <b>Due back</b>
+                    </td>
+                </tr>
+                @{
+                    List<Book> books = BookRepository.GetBooksOfType(Model).Books;
+                    foreach (Book book in books)
+                    {
+                        if (book.available)
+                        {
+                            <tr style="background-color: #00ff00">
+                                <td>
+                                    @book.id
+                                </td>
+                                <td>
+                                    Available
+                                </td>
+
+                                <td>
+                                    Library
+                                </td>
+
+                                <td>
+                                    N/A
+                                </td>
+                                <td>
+                                    N/A
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                              LoanRepository loanRepository = new LoanRepository();
+                              Loans loan = loanRepository.GetLoanFromBookId(book.id);
+                            <tr style="background-color: #ff0000">
+                                <td>
+                                    @book.id
+                                </td>
+                                <td>
+                                    Unavailable
+                                </td>
+                                <td>
+                                    @loan.user.userName - @loan.user.id
+                                </td>
+                                <td>
+                                    @String.Format($"{loan.dateTakenOut:d}")
+                                </td>
+                                <td>
+                                    @String.Format($"{loan.dateTakenOut.AddDays(loan.duration):d}")
+                                </td>
+                            </tr>   
+                        }
+                    }
+                }
+            </table>
+        </div>
+    </body>
+</html>
