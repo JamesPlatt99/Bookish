@@ -102,12 +102,13 @@
                 int i = 0;
                 foreach (BookTypes book in books)
                 {
+                    i++;
                     string style = "background-color: #f3f3f3;";
                     if (i % 2 == 0)
                     {
                         style = "background-color: #e3e3e3;";
                     }
-                    <tr style="@style">
+                    <tr style="@style height: 100px;">
                         <td>
                             @book.title
                         </td>

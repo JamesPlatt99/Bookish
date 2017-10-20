@@ -38,7 +38,7 @@
                     {
                         if (book.available)
                         {
-                            <tr style="background-color: #44dd44">
+                            <tr style="background-color: #44dd44;">
                                 <td>
                                     @book.id
                                 </td>
@@ -62,7 +62,7 @@
                         {
                               LoanRepository loanRepository = new LoanRepository();
                               Loans loan = loanRepository.GetLoanFromBookId(book.id);
-                            <tr style="background-color: #dd4444">
+                            <tr style="background-color: #dd4444;">
                                 <td>
                                     @book.id
                                 </td>
