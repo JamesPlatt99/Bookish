@@ -46,7 +46,7 @@
     <div style="overflow: hidden;">
         <h2>Current rentals</h2>
         <table cellpadding="10">
-            <tr>
+            <tr style="background-color: #a9a9a9">
                 <td>
                     <b>
                         Cover Image:
@@ -79,16 +79,30 @@
                 </td>
             </tr>
             @{
+                int i = 0;
                 foreach (Loans rental in rentals)
                 {
+                    i++;
                     string style = "background-color: #44dd44;";
+                    if (i % 2 == 0)
+                    {
+                        style = "background-color: #55cc55;";
+                    }
                     if (DateTime.Compare(rental.dateTakenOut.AddDays(rental.duration), DateTime.Now.Date) < 0)
                     {
                         style = "background-color: #dd4444;";
+                        if (i % 2 == 0)
+                        {
+                            style = "background-color: #cc5555;";
+                        }
                     }
                     if (DateTime.Compare(rental.dateTakenOut.AddDays(rental.duration), DateTime.Now.Date) == 0)
                     {
                         style = "background-color: #dddd44;";
+                        if (i % 2 == 0)
+                        {
+                            style = "background-color: #cccc55;";
+                        }
                     }
                     <tr style="@style height: 100px;">
                         <td>

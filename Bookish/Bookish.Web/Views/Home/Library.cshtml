@@ -100,6 +100,7 @@
             </tr>
             @{
                 int i = 0;
+                
                 foreach (BookTypes book in books)
                 {
                     i++;
@@ -133,12 +134,12 @@
                         <td>
                             @using (Html.BeginForm("TakeOutBook", "Home", FormMethod.Post))
                             {
-                                if (book.availableCopies > 0)
-                                {
+                        if (book.availableCopies > 0)
+                        {
                                     <input type="hidden" name="id" value="@book.id" />
                                     <input type="submit" value="Take out" />
                                 }
-                            }
+                    }
                         </td>
                         <td>
                             <a href="ViewStatus?id=@book.id">View status</a>

@@ -15,7 +15,7 @@
                 Book status - @Model.title
             </h2>
             <table cellpadding="15">
-                <tr>
+                <tr style="background-color: #a9a9a9">
                     <td>
                         <b>Book id</b>
                     </td>
@@ -33,12 +33,20 @@
                     </td>
                 </tr>
                 @{
+                    int i = 0;
+                    string style;
                     List<Book> books = BookRepository.GetBooksOfType(Model).Books;
                     foreach (Book book in books)
                     {
+                        i++;
                         if (book.available)
                         {
-                            <tr style="background-color: #44dd44;">
+                            style = "background-color: #44dd44;";
+                            if (i % 2 == 0)
+                            {
+                                style = "background-color: #55cc55;";
+                            }
+                            <tr style="@style">
                                 <td>
                                     @book.id
                                 </td>
@@ -60,9 +68,14 @@
                         }
                         else
                         {
-                              LoanRepository loanRepository = new LoanRepository();
-                              Loans loan = loanRepository.GetLoanFromBookId(book.id);
-                            <tr style="background-color: #dd4444;">
+                            style = "background-color: #dd4444;";
+                            if (i % 2 == 0)
+                            {
+                                style = "background-color: #cc5555;";
+                            }
+                            LoanRepository loanRepository = new LoanRepository();
+                            Loans loan = loanRepository.GetLoanFromBookId(book.id);
+                            <tr style="@style">
                                 <td>
                                     @book.id
                                 </td>
