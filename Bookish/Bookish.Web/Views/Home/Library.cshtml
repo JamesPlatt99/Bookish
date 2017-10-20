@@ -25,15 +25,37 @@
             }
         </h3>
     </div>
-    @{
-        BookTypeRepository bookTypeRepository = new BookTypeRepository();
-        List<BookTypes> books = bookTypeRepository.GetBookTypes();
-        if (Model.sortby != null)
-        {
-            books = BookTypes.SortBooks(Model.sortby,books);
-        }
-        }
-    <h2>Books</h2>
+@{
+    List<BookTypes> books;
+    BookTypeRepository bookTypeRepository = new BookTypeRepository();
+
+    if (Model.search != null && Model.type != null)
+    {
+        books = bookTypeRepository.SearchBookTypes(Model.search,Model.type);
+    }
+    else
+    {
+        books = bookTypeRepository.GetBookTypes();
+
+    }
+    if (Model.sortby != null)
+    {
+        books = BookTypes.SortBooks(Model.sortby, books);
+    }
+    }
+<h2>Books</h2>
+<br />
+@using (Html.BeginForm("Library", "Home", FormMethod.Post))
+{
+    <label>Search</label><br/>
+    <input type="text" name="search" /><br/>
+    <select name="type">
+        <option value="BookTypes.title">Title</option>
+        <option value="Author.name">Author</option>
+    </select><br/>
+    <input type="submit"/>
+    <br/>
+}
 
         <table cellpadding="5">
             <tr style="background-color: #a9a9a9">
@@ -67,6 +89,7 @@
                         <a href="Library?SortBy=availableCopies">Available copies</a>
                     </b>
                 </td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -115,6 +138,9 @@
                         </td>
                         <td>
                             <a href="ViewStatus?id=@book.id">View status</a>
+                        </td>
+                        <td>
+                            <a href="EditBook?id=@book.id">Edit</a>
                         </td>
                     </tr>
                 }

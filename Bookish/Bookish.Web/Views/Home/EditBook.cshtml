@@ -1,0 +1,34 @@
+﻿@model DataAccessNew.Tables.BookTypes
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Book - @Model.title</title>
+</head>
+    <body>
+    <div>
+        <br/>
+        <h2>
+            Edit Book - @Model.title
+        </h2>
+        <br/>
+        @using (Html.BeginForm("EditBookResult", "Home", FormMethod.Post))
+        {
+            <label>Title</label><br />
+            <input type="text" name="title" value="@Model.title" /><br /><br />
+            <label>Author</label><br />
+            <input type="text" name="author.name"  value="@Model.author.name" /><br /><br />
+            <label>Genre</label><br />
+            <input type="text" name="genre"  value="@Model.genre"/><br /><br />
+            <label>Release date</label><br />
+            <input type="date" name="releaseDate" value="@string.Format($"{Model.releaseDate:yyy-MM-dd}")" /><br /><br />
+            <label>ISBN</label><br />
+            <input type="text" name="ISBN"  value="@Model.ISBN"/><br /><br />
+            <label>Cover Image Url</label><br />
+            <input type="url" name="coverImageURL" value="@Model.coverImageURL" /><br /><br />
+            <input type="hidden" name="id" value="@Model.id"/>
+            <input type="submit" />
+        }
+    </div>
+    </body>
+</html>

@@ -108,10 +108,26 @@ namespace Bookish.Web.Controllers
             
             return View("Library", new LibraryParameters());
         }
+        public ActionResult EditBookResult(BookTypes bookType)
+        {
+            AuthorRepository authorRepository = new AuthorRepository();
+            BookTypeRepository bookTypeRepository = new BookTypeRepository();
+            bookType.author_id = authorRepository.GetAuthorId(bookType.author.name);
+            bookTypeRepository.UpdateBookType(bookType);
+                return View("Library", new LibraryParameters());
+        }
+
 
         public ActionResult AddBook()
         {
             return View();
+        }
+
+        public ActionResult EditBook(int id)
+        {
+            BookTypeRepository bookTypeRepository = new BookTypeRepository();
+            BookTypes bookType = bookTypeRepository.GetSingleBookType(id);
+            return View("EditBook", bookType);
         }
 
         public ActionResult Contact()

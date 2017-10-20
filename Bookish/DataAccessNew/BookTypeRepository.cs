@@ -21,6 +21,16 @@ namespace DataAccessNew
             bookTypes = GetAvailableCopies(bookTypes);
             return bookTypes;
         }
+        public List<BookTypes> SearchBookTypes(string search, string type)
+        {
+            string sqlString = $"SELECT * FROM BookTypes, Author WHERE {type} LIKE '%{search}%' AND BookTypes.Author_Id = Author.Id;";
+            List<BookTypes> bookTypes = (List<BookTypes>)_db.Query<BookTypes>(sqlString);
+            bookTypes = GetAuthors(bookTypes);
+            bookTypes = BookRepository.GetBooksOfType(bookTypes);
+            bookTypes = GetAvailableCopies(bookTypes);
+            return bookTypes;
+        }
+
 
         private List<BookTypes> GetAvailableCopies(List<BookTypes> bookTypes)
         {
@@ -51,6 +61,8 @@ namespace DataAccessNew
         {
             string sqlString = $"SELECT * FROM BookTypes Where id = '{bookTypeId}';";
             BookTypes bookType = _db.Query<BookTypes>(sqlString).SingleOrDefault();
+            AuthorRepository authorRepository = new AuthorRepository();
+            bookType.author = authorRepository.GetSingleAuthor(bookType.author_id);
             return bookType;
         }
 
@@ -71,9 +83,9 @@ namespace DataAccessNew
             throw new NotImplementedException();
         }
 
-        public bool UpdateBookType(BookTypes bookType)
+        public void UpdateBookType(BookTypes bookType)
         {
-            throw new NotImplementedException();
+            _db.Execute($"UPDATE BookTypes SET title = '{bookType.title}',SET author_id = '{bookType.author_id}', genre= '{bookType.genre}', releaseDate = '{string.Format($"{bookType.releaseDate:yyyy-MM-dd}")}', ISBN = '{bookType.ISBN}', coverImageURL = '{bookType.coverImageURL}' WHERE id = {bookType.id}");
         }
     }
 }
