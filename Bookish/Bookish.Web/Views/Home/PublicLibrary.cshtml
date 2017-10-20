@@ -4,28 +4,20 @@
 @using Bookish.Web.ViewModels
 @using DataAccessNew.Tables
 @model Bookish.Web.ViewModels.LibraryParameters
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+    
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Home</title>
+    <title>Library</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
 </head>
 
 <body>
-    <div>
-        <br />
-        <h3>
-            @{
-                if (Session["Username"] != null)
-                {
-                    <p>
-                        Welcome @Session["Username"].ToString()
-                    </p>
-                }
-            }
-        </h3>
-    </div>
+   
 @{
     List<BookTypes> books;
     BookTypeRepository bookTypeRepository = new BookTypeRepository();
@@ -46,7 +38,7 @@
     }
 <h2>Books</h2>
 <br />
-@using (Html.BeginForm("Library", "Home", FormMethod.Post))
+@using (Html.BeginForm("PublicLibrary", "Home", FormMethod.Post))
 {
     <label>Search</label><br/>
     <input type="text" name="search" /><br/>
@@ -63,7 +55,7 @@
 }
 
         <table cellpadding="5">
-            <tr id="header">
+            <tr style="background-color: #a9a9a9">
                 <td>
                     <b>
                         <a href="Library?SortBy=title">Title</a>
@@ -94,8 +86,6 @@
                         <a href="Library?SortBy=availableCopies">Available copies</a>
                     </b>
                 </td>
-                <td></td>
-                <td></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -134,19 +124,6 @@
                         </td>
                         <td>
                             <a href="ViewStatus?id=@book.id">View status</a>
-                        </td>
-                        <td>
-                            <a href="EditBook?id=@book.id">Edit</a>
-                        </td>
-                        <td>
-                            @using (Html.BeginForm("TakeOutBook", "Home", FormMethod.Post))
-                            {
-                                if (book.availableCopies > 0)
-                                {
-                                    <input type="hidden" name="id" value="@book.id" />
-                                    <input type="submit" value="Take out" />
-                                }
-                            }
                         </td>
                     </tr>
                 }

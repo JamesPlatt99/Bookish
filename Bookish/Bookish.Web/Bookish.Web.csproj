@@ -162,6 +162,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Main.css" />
+    <Content Include="Content\UsableIndex.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -204,6 +206,9 @@
     <Content Include="Views\Home\ViewStatus.cshtml" />
     <Content Include="Views\Home\EditBook.cshtml" />
     <Content Include="Views\Home\RentalHistory.cshtml" />
+    <Content Include="Views\Home\UsableIndex.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Home\PublicLibrary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

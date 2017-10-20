@@ -1,77 +1,122 @@
-﻿@using System.Web.UI.WebControls
-@using DataAccessNew
-@using DataAccessNew.Tables
+﻿@using DataAccessNew.Tables
 @model Bookish.Web.Models.LoginRegisterData
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 @{
     ViewBag.Title = "Home Page";
-    Layout = null;
     Session.Clear();
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-<link rel="stylesheet" href="~/Content/style.css">
-<div id="header">
-    <h1>Ay up lads, check out me new library!</h1>
-</div>
-<marquee scrollamount="300">
-    <img src="http://www.carechartsuk.co.uk/wp-content/uploads/2014/10/book-reviews-web.png" height="150" />
-</marquee>
-<div style="color: crimson; font-size: 16px;">
-    @if (@Model != null)
-    {
-        @Model.Error
-    }
-</div>
+<!DOCTYPE html>
 
-<marquee scrollamount="50">
-    <table width="80%">
-        <tr>
-            <td>
-                <div>
-                    <h2>Login</h2><br />
-                    @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
-                    {
-                        <label>Username: </label>
-                        <br />
-                        <input type="text" name="UserName" />
-                        <br />
-                        <br />
-                        <label>Password: </label>
-                        <br />
-                        <input type="password" name="Password" />
-                        <input type="hidden" name="NewUser" value="false" />
-                        <br />
-                        <br />
-                        <input type="submit" />
-                    }
+<html>
+<head>
+    <title>Usable index</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/UsableIndex.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#signup").hide();
+            $("#login").hide();
+            $("#login").slideDown();
+
+            $("#clicksignup").click(function () {
+                $("#signup").slideDown();
+                $("#login").slideUp();
+            });
+            $("#clicklogin").click(function () {
+                $("#signup").slideUp();
+                $("#login").slideDown();
+            });
+        });
+    </script>
+
+
+</head>
+<body>
+    <br /><br />
+    <center>
+        <div id="login">
+            @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
+            {
+                <div id="logintableheader">
+                    <font size="5">
+                        Login
+                    </font>
                 </div>
-            </td>
-            <td>
-                <div>
-                    @{
-                        List<BookTypes> books = new List<BookTypes>();
-                    }
-                    <h2>Register</h2><br />
-                    @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
-                    {
-                        <label>Username </label>
-                        <br />
-                        <input type="text" name="UserName" />
-                        <br />
-                        <br />
-                        <label>Password </label>
-                        <br />
-                        <input type="password" name="Password" />
-                        <br />
-                        <br />
-                        <label>Confirm Password </label>
-                        <br />
-                        <input type="password" name="ConfirmPassword" />
-                        <input type="hidden" name="NewUser" value="true" />
-                        <br />
-                        <br />
-                        <input type="submit" />
-                    }
-                </div>
-            </td>
-        </tr>
-    </table>
-</marquee>
+                <table>
+                    <tr>
+                        <td>
+                            <br>
+                            <input type="text" id="input" name="Username" placeholder="Username">
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="Password" id="input" name="Password" placeholder="Password">
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="NewUser" value="false" />
+                            <input type="submit" id="input">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br><br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="link">
+                                <a href="#" id="clicksignup">Not a user? Sign up.</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            }
+
+        </div>
+
+        <div id="signup">
+            <div id="logintableheader">
+                <font size="5">
+                    Signup
+                </font>
+            </div>
+            @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td>
+                            <br>
+                            <input type="text" id="input" name="Username" placeholder="Username">
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="Password" id="input" name="Password" placeholder="Password">
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="Password" id="input" name="ConfirmPassword" placeholder="Confirm Password">
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="NewUser" value="true" />
+                            <input type="submit" id="input" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="link">
+                                <a href="#" id="clicklogin"> Already a user? Login.</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </center>
+</body>
+</html>

@@ -13,6 +13,16 @@ namespace Bookish.Web.Controllers
             return View();
         }
 
+        public ActionResult UsableIndex()
+        {
+            return View();
+        }
+
+        public ActionResult PublicLibrary(LibraryParameters libraryParameters)
+        {
+            return View(libraryParameters);
+        }
+
         public bool ValidateUser(UserData user)
         {
             try

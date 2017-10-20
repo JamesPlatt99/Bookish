@@ -1,0 +1,95 @@
+﻿@using System.Web.UI.WebControls
+@using DataAccessNew
+@using DataAccessNew.Tables
+@model Bookish.Web.Models.LoginRegisterData
+@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+    Session.Clear();
+}
+<link rel="stylesheet" href="~/Content/style.css">
+<meta name="google-signin-client_id" content="465617142111-1mmjd6jur4hi0vav9il2gnsapv7fqi7f.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript">
+    console.log("test");
+    //document.body.style.cursor = 'none';
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+</script>
+<div id="header">
+    <h1>Ay up lads, check out me new library!</h1>
+    <a href="http://localhost:56321/Home/UsableIndex">Usable index</a>
+</div>
+<marquee scrollamount="300">
+    <img src="http://www.carechartsuk.co.uk/wp-content/uploads/2014/10/book-reviews-web.png" height="150" />
+</marquee>
+<div style="color: crimson; font-size: 16px;">
+    @if (@Model != null)
+    {
+        @Model.Error
+    }
+</div>
+
+<marquee scrollamount="50">
+    <table width="80%">
+        <tr>
+            <td>
+                <div>
+                    <h2>Login</h2><br />
+                    @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
+                    {
+                        <label>Username: </label>
+                        <br />
+                        <input type="text" name="UserName" />
+                        <br />
+                        <br />
+                        <label>Password: </label>
+                        <br />
+                        <input type="password" name="Password" />
+                        <input type="hidden" name="NewUser" value="false" />
+                        <br />
+                        <br />
+                        <input type="submit" />
+                    }
+                </div>
+            </td>
+            <td>
+                <div>
+                    @{
+                        List<BookTypes> books = new List<BookTypes>();
+                    }
+                    <h2>Register</h2><br />
+                    @using (Html.BeginForm("VerifyLogin", "Home", FormMethod.Post))
+                    {
+                        <label>Username </label>
+                        <br />
+                        <input type="text" name="UserName" />
+                        <br />
+                        <br />
+                        <label>Password </label>
+                        <br />
+                        <input type="password" name="Password" />
+                        <br />
+                        <br />
+                        <label>Confirm Password </label>
+                        <br />
+                        <input type="password" name="ConfirmPassword" tabindex="-1" />
+                        <input type="hidden" name="NewUser" value="true" />
+                        <br />
+                        <br />
+                        <input type="submit" />
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+</marquee>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>

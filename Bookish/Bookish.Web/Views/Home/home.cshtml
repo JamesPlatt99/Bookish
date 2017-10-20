@@ -19,34 +19,59 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
 </head>
 
 <body>
     <div>
         <br />
         <h3>
-            Welcome @Session["UserName"]
+            Welcome @Session["UserName"]?
         </h3>
     </div>
     <div style="float: left; width: 400px;">
         <h2>Menu</h2>
-        <br />
-        <a href="Library">View library</a>
-        <br /><br />
-        <a href="AddBook">Add book.</a>
-        <br /><br />
-        <a href="RentalHistory">View previous rentals.</a>
-    </div>
+        <br/>
+        
+        <div id="card">
+            <a href="Library">
+                <p id="cardtitle">View library</p>
+                <p>
+                    A list of all of the books and their current availability. With the ability to search by title or author as well as sorting the results by column.
+                </p>
+            </a>
+        </div>
+        <br/>
+        
+        
+        <div id="card">
+            <a href="AddBook">
+            <p id="cardtitle">Add book</p>
+            <p>
+                Add a new book to our collection; enter the title, author, genre, release date, ISBN, the URL of the cover image and the total quantity.
+            </p>
+            </a>
+        </div>
+        <br/>
+        
+        <div id="card">
+            <a href="RentalHistory">
+                <p id="cardtitle">Rental history</p>
+                <p>
+                    View all of your previous book rentals including details of the book title, author and cover image as well as the date it was taken out, the date it was due back and the date it was returned.
+                </p>
+            </a>
+        </div>
+</div>
     @{
         UserRepository userRepository = new UserRepository();
         int userId = userRepository.GetSingleUser(Session["userName"].ToString()).id;
         LoanRepository loanRepository = new LoanRepository();
         List<Loans> rentals = loanRepository.GetActiveLoans(userId);
     }
-    <div style="overflow: hidden;">
         <h2>Current rentals</h2>
         <table cellpadding="10">
-            <tr style="background-color: #a9a9a9">
+            <tr id="header">
                 <td>
                     <b>
                         Cover Image:
@@ -127,6 +152,5 @@
                 }
             }
         </table>
-    </div>
 </body>
 </html>
