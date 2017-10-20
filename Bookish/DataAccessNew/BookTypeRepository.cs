@@ -85,7 +85,7 @@ namespace DataAccessNew
 
         public void UpdateBookType(BookTypes bookType)
         {
-            _db.Execute($"UPDATE BookTypes SET title = '{bookType.title}',SET author_id = '{bookType.author_id}', genre= '{bookType.genre}', releaseDate = '{string.Format($"{bookType.releaseDate:yyyy-MM-dd}")}', ISBN = '{bookType.ISBN}', coverImageURL = '{bookType.coverImageURL}' WHERE id = {bookType.id}");
+            _db.Execute($"UPDATE BookTypes SET title = '{bookType.title}', author_id = '{bookType.author_id}', genre= '{bookType.genre}', releaseDate = '{string.Format($"{bookType.releaseDate:yyyy-MM-dd}")}', ISBN = '{bookType.ISBN}', coverImageURL = '{bookType.coverImageURL}' WHERE id = {bookType.id}");
         }
     }
 }
