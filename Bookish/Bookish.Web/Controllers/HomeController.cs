@@ -108,6 +108,7 @@ namespace Bookish.Web.Controllers
             
             return View("Library", new LibraryParameters());
         }
+
         public ActionResult EditBookResult(BookTypes bookType)
         {
             AuthorRepository authorRepository = new AuthorRepository();
@@ -116,7 +117,6 @@ namespace Bookish.Web.Controllers
             bookTypeRepository.UpdateBookType(bookType);
                 return View("Library", new LibraryParameters());
         }
-
 
         public ActionResult AddBook()
         {
