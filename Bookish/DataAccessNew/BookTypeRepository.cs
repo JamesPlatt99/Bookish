@@ -22,9 +22,19 @@ namespace DataAccessNew
             return bookTypes;
         }
 
-        public List<BookTypes> SearchBookTypes(string search, string type)
+        public List<BookTypes> GetBookTypes(int numRows)
         {
-            string sqlString = $"SELECT * FROM Author,BookTypes WHERE {type} LIKE '%{search}%' AND BookTypes.Author_Id = Author.Id;";
+            string sqlString = $"SELECT TOP {numRows} * FROM BookTypes;";
+            List<BookTypes> bookTypes = (List<BookTypes>)_db.Query<BookTypes>(sqlString);
+            bookTypes = GetAuthors(bookTypes);
+            bookTypes = BookRepository.GetBooksOfType(bookTypes);
+            bookTypes = GetAvailableCopies(bookTypes);
+            return bookTypes;
+        }
+
+        public List<BookTypes> SearchBookTypes(string search, string type, int numRows)
+        {
+            string sqlString = $"SELECT TOP {numRows} * FROM Author,BookTypes WHERE {type} LIKE '%{search}%' AND BookTypes.Author_Id = Author.Id;";
             List<BookTypes> bookTypes = (List<BookTypes>)_db.Query<BookTypes>(sqlString);
             bookTypes = GetAuthors(bookTypes);
             bookTypes = BookRepository.GetBooksOfType(bookTypes);

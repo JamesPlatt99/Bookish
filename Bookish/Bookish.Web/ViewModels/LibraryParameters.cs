@@ -7,5 +7,7 @@
         public string search { get; set; }
 
         public string type { get; set; }
+
+        public int numRows { get; set; }   
     }
 }

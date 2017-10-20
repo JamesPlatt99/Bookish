@@ -21,21 +21,51 @@ namespace Bookish
 
             foreach (BookTypes book in books)
             {
+                BookRepository bookRepository = new BookRepository();
                 BookTypeRepository bookTypeRepository = new BookTypeRepository();
-                bookTypeRepository.InsertBookType(book);
+                if (CheckBookTitleIsFree(book.title))
+                {
+                    bookTypeRepository.InsertBookType(book);
+                }
+                Book copy = new Book()
+                {
+                    BookTypes_id = bookTypeRepository.GetSingleBookType(book.title).id
+                };
+                for (int i = 0; i < book.availableCopies;i++)
+                {
+                    bookRepository.InsertBook(copy);
+                }
             }
+        }
+
+        public static Boolean CheckBookTitleIsFree(string title)
+        {
+            BookTypeRepository bookTypeRepository = new BookTypeRepository();
+
+            List<BookTypes> bookTypes = bookTypeRepository.GetBookTypes();
+            foreach (BookTypes bookType in bookTypes)
+            {
+                if (bookType.title == title)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private static BookTypes GetBook(string[] line)
         {
+            DateTime releaseDate = DateTime.MinValue;
+            DateTime.TryParse(line[3], out releaseDate);
             BookTypes bookType = new BookTypes()
             {
-                title = line[1],
-                author_id = GetAuthorId(line[4]),
-                genre = "Unknown",
-                releaseDate = DateTime.Parse(line[6]),
-                ISBN = line[9],
-                coverImageURL = line[12]
+                title = line[0],
+                author_id = GetAuthorId(line[1]),
+                genre = line[2],
+                releaseDate =  releaseDate,
+                ISBN = line[4],
+                coverImageURL = line[5],
+                availableCopies = int.Parse(line[6])
             };
             return bookType;
         }

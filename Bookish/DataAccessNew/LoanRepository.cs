@@ -54,7 +54,7 @@ namespace DataAccessNew
 
         public List<Loans> GetPastLoans(int userId)
         {
-            string sqlString = $"SELECT * FROM Loans WHERE User_Id = {userId} AND returned = 'true';";
+            string sqlString = $"SELECT * FROM Loans WHERE User_Id = {userId} AND returned = 'true' ORDER BY dateReturned DESC;";
             List<Loans> loans = (List<Loans>)_db.Query<Loans>(sqlString);
             loans = GetBooks(loans);
             loans = GetUsers(loans);

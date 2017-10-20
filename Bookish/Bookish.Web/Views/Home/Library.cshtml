@@ -28,14 +28,14 @@
 @{
     List<BookTypes> books;
     BookTypeRepository bookTypeRepository = new BookTypeRepository();
-
+    int numRows = Math.Max(30, Model.numRows);
     if (Model.search != null && Model.type != null)
     {
-        books = bookTypeRepository.SearchBookTypes(Model.search,Model.type);
+        books = bookTypeRepository.SearchBookTypes(Model.search,Model.type,numRows);
     }
     else
     {
-        books = bookTypeRepository.GetBookTypes();
+        books = bookTypeRepository.GetBookTypes(numRows);
 
     }
     if (Model.sortby != null)
@@ -52,8 +52,12 @@
     <select name="type">
         <option value="BookTypes.title">Title</option>
         <option value="Author.name">Author</option>
-    </select><br/>
+    </select><br/><br/>
+    <label>Number of results (min 30)</label><br />
+    <input type="number" name="numRows" /><br />
     <input type="submit"/>
+    <br />
+    <br />
     <br/>
 }
 
