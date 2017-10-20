@@ -1,0 +1,93 @@
+﻿@using DataAccessNew
+@using DataAccessNew.Tables
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Rental History - @Session["userName"].ToString()</title>
+</head>
+    <body>
+        <br/>   
+        <div>
+            <h2>
+                Rental History - @Session["userName"].ToString()
+            </h2>
+            <br/>
+            
+            @{
+                UserRepository userRepository = new UserRepository();
+                int userId = userRepository.GetSingleUser(Session["userName"].ToString()).id;
+                LoanRepository loanRepository = new LoanRepository();
+                List<Loans> rentals = loanRepository.GetPastLoans(userId);
+            }
+
+            <table cellpadding="10">
+                <tr style="background-color: #a9a9a9">
+                    <td>
+                        <b>
+                            Cover Image:
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            Book title:
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            Author:
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            Taken out:
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            Due back:
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            Date returned:
+                        </b>
+                    </td>
+                </tr>
+                @{
+                    int i = 0;
+                    foreach (Loans rental in rentals)
+                    {
+                        i++;
+                        string style = "background-color: #f3f3f3;";
+                        if (i % 2 == 0)
+                        {
+                            style = "background-color: #e3e3e3;";
+                        }
+
+                        <tr style="@style">
+                            <td>
+                                <img src="@rental.Book.BookType.coverImageURL" height="100px" />
+                            </td>
+                            <td>
+                                @rental.Book.BookType.title
+                            </td>
+                            <td>
+                                @rental.Book.BookType.author.name
+                            </td>
+                            <td>
+                                @string.Format($"{rental.dateTakenOut:d}")
+                            </td>
+                            <td>
+                                @string.Format($"{rental.dateTakenOut.AddDays(rental.duration):d}")
+                            </td>
+                            <td>
+                                @string.Format($"{rental.dateReturned:d}")
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </body>
+</html>

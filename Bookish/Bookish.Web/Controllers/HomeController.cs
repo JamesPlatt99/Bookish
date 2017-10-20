@@ -123,6 +123,11 @@ namespace Bookish.Web.Controllers
             return View();
         }
 
+        public ActionResult RentalHistory()
+        {
+            return View();
+        }
+
         public ActionResult EditBook(int id)
         {
             BookTypeRepository bookTypeRepository = new BookTypeRepository();

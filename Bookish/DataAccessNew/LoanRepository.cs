@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using DataAccessNew.Tables;
 using System.Collections.Generic;
 using System.Data;
@@ -51,6 +52,15 @@ namespace DataAccessNew
             return loans;
         }
 
+        public List<Loans> GetPastLoans(int userId)
+        {
+            string sqlString = $"SELECT * FROM Loans WHERE User_Id = {userId} AND returned = 'true';";
+            List<Loans> loans = (List<Loans>)_db.Query<Loans>(sqlString);
+            loans = GetBooks(loans);
+            loans = GetUsers(loans);
+            return loans;
+        }
+
         private List<Loans> GetUsers(List<Loans> loans)
         {
             UserRepository userRepository = new UserRepository();
@@ -63,7 +73,7 @@ namespace DataAccessNew
 
         public void ReturnBook(Loans loan)
         {
-            _db.Query($"UPDATE Loans Set returned = 'true' Where id = {loan.id}");
+            _db.Query($"UPDATE Loans Set returned = 'true', dateReturned = '{DateTime.Now:yyyy-MM-dd}' Where id = {loan.id}");
             _db.Query($"UPDATE Book SET available = 'true' Where id = {loan.Book.id}");
         }
 
